@@ -10,7 +10,6 @@ const buildDate = new Date().toLocaleString();
 
 module.exports = (env, argv) => {
   const isProduction = argv.mode === "production";
-  console.log({ isProduction });
   return {
     entry: {
       bundle: "./src/index.ts",
@@ -22,6 +21,7 @@ module.exports = (env, argv) => {
        clean: true,
     },
     mode: process.env.NODE_ENV || "development",
+    devtool: !isProduction ? 'eval-source-map' : undefined,
     devServer: {
       port: 3000,
       open: true,
