@@ -4,6 +4,7 @@ const { ModuleFederationPlugin } = webpack.container;
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const deps = require("./package.json").dependencies;
 require("dotenv").config({ path: "./.env" });
+const path = require("path");
 
 const buildDate = new Date().toLocaleString();
 
@@ -11,7 +12,15 @@ module.exports = (env, argv) => {
   const isProduction = argv.mode === "production";
   console.log({ isProduction });
   return {
-    entry: "./src/index.ts",
+    entry: {
+      bundle: "./src/index.ts",
+    },
+    output: {
+      filename: 'bundle.js',
+      filename: '[name].[contenthash].js',
+       path: path.resolve(__dirname, 'dist'),
+       clean: true,
+    },
     mode: process.env.NODE_ENV || "development",
     devServer: {
       port: 3000,

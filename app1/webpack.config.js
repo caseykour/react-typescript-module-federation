@@ -4,7 +4,15 @@ const path = require("path");
 const deps = require("./package.json").dependencies;
 
 module.exports = {
-  entry: "./src/index.ts",
+  entry: {
+    bundle: "./src/index.ts",
+  },
+  output: {
+    filename: 'bundle.js',
+    filename: '[name].[contenthash].js',
+     path: path.resolve(__dirname, 'dist'),
+     clean: true,
+  },
   mode: "development",
   devServer: {
     port: 3001,
